@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home/Home';
+import UserForm from './components/UserForm';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const LoadingSpinner = () => {
+	return (
+    <div className="spinner-container">
+      	<div className="loading-spinner">
+      	</div>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return ( 
+      <LoadingSpinner/>
+    );
+  }
+  if (error) {
+      return 'There was an error';
+  }
+  if (!user) {
+    return <UserForm/>;
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' exact element={<Home/>}/>
+        <Route path='/mastermind/:difficulty' element={"Mastermind"}/>
+        <Route path='/sudoku/:difficulty' element={"Sudoku"}/>
+      </Routes>
+    </BrowserRouter>
+  );
+}
