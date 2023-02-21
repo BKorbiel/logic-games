@@ -22,16 +22,6 @@ const Chat = ({id}) => {
             messege: newMessege,
             createdAt: serverTimestamp(),
         });
-        /*
-        updateDoc(doc(db, "chat", id), 
-        {messeges: arrayUnion(
-            {
-                creator_name: userName, 
-                creator_id: currentUser.uid, 
-                messege: newMessege
-            }
-        )});
-        */
     }
  
     return (

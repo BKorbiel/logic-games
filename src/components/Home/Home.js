@@ -35,7 +35,7 @@ const Home = () => {
           <h1>Select game</h1>
           <select id="select" multiple onChange={(e) => setSelectedGame(e.target.value)} required>
             <option value="mastermind">Mastermind</option>
-            <option value="sudoku">Sudoku</option>
+            <option value="sudoku" disabled>Sudoku</option>
           </select>
           {selectedGame && (
             <>
