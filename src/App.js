@@ -5,6 +5,7 @@ import Home from './components/Home/Home';
 import UserForm from './components/UserForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
+import Game from './components/Game/Game';
 
 const LoadingSpinner = () => {
 	return (
@@ -34,8 +35,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' exact element={<Home/>}/>
-        <Route path='/mastermind/:difficulty' element={"Mastermind"}/>
-        <Route path='/sudoku/:difficulty' element={"Sudoku"}/>
+        <Route path='/game/:id' element={<Game/>}/>
       </Routes>
     </BrowserRouter>
   );
