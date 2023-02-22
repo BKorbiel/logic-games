@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 import Game from './components/Game/Game';
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
 	return (
     <div className="spinner-container">
       	<div className="loading-spinner">
