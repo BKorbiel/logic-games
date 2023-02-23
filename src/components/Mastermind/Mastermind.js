@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import GameBoard from './GameBoard';
+import Game from './Game/Game';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
+import Summary from './Summary/Summary';
 
 const CountDown = ({startDate}) => {
   const [counter, setCounter] = useState(Timestamp.fromDate(new Date()) - startDate-10);
@@ -37,6 +38,8 @@ const Mastermind = ({id}) => {
   const { currentUser } = auth;
   const [colors, setColors] = useState(["blue", "green", "yellow", "red"]);
   const [game] = useDocumentData(doc(db, "games", id));
+  const [thisPlayerFinished, setThisPlayerFinished] = useState(false);
+  const [secondPlayerFinished, setSecondPlayerFinished] = useState(false);
 
   useEffect(() => {
     if (game?.difficulty == "normal") {
@@ -58,13 +61,30 @@ const Mastermind = ({id}) => {
         game.code=code;
       }
     }
+
+    for (let i=0; i<2; i++) {
+      if (game?.members[i]?.finish) {
+        if (game?.members[i].uid==currentUser?.uid) {
+          setThisPlayerFinished(true);
+        }
+        else {
+          setSecondPlayerFinished(true);
+        }
+      }
+    }
   }, [game]);
 
   return (
     <div>
       <div>Mastermind</div>
-      <div><CountDown startDate={game?.started || 0}/></div>
-      <div><GameBoard id={id} colors={colors}/></div>
+      {thisPlayerFinished ? <Summary game={game} id={id} thisPlayer={game.members.find(m => m.uid === currentUser.uid)} secondPlayer={game.members.find(m => m.uid != currentUser.uid)}/>
+      :
+        <>
+          <div><CountDown startDate={game?.started || 0}/></div>
+          {secondPlayerFinished && <div>The other player has already finished the game</div>}
+          <div><Game id={id} colors={colors}/></div>
+        </>
+    }
     </div>
     )
 }

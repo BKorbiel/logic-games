@@ -1,0 +1,33 @@
+.feedback-board {
+    width: 140px;
+    min-width: 120px;
+    height: 600px;
+    background-color: gray;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.feedbacks-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+}
+
+.feedback {
+    margin: 0;
+    margin-right: auto;
+    width: 30px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedback-color {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: rgb(150, 146, 146);
+}

@@ -64,7 +64,6 @@ const Game = () => {
                 setIntruder(true);
                 setTimeout(() => navigate('/'), 6000);
             }
-
             if (!gameStarted) {
                 setIsCountingDown(true);
                 console.log(2);
@@ -97,7 +96,7 @@ const Game = () => {
                                 <br/>
                                 <br/>
                                 <h4>Send the link below to your friend</h4>
-                                {id}
+                                {window.location.href}
                             </>
                         :
                             isCountingDown ? <CountDown onStart={startGame} startDate={game?.started}/>

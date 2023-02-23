@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.colors {
+.colors-to-select {
     width: 200px;
     height: 200px;
     margin: 10px;
@@ -22,14 +22,22 @@
 }
 
 .feedback {
-    width: 200px;
+    width: 120px;
     height: 600px;
-    background-color: #FFF;
+    background-color: gray;
     margin: 10px;
+}
+
+.feedback-element {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: lightgray;
 }
 
 .color-container{
     margin: 0;
+    margin-right: auto;
     width: 50px;
     height: 50px;
     background-color: gray;
@@ -61,5 +69,12 @@
 
 .attempts {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+}
+
+.end {
+    width: 100px;
+    height: 100px;
 }

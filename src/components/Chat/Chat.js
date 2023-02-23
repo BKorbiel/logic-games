@@ -13,15 +13,15 @@ const Chat = ({id}) => {
     const userName = localStorage.getItem('userName');
 
     
-    const sendMessege = async () => {
-
-        setNewMessege("");
-
+    const sendMessege = async (e) => {
+        e.preventDefault();
         await addDoc(collection(db, "games", id, "messeges"),  {
             creator_name: userName,  
             messege: newMessege,
             createdAt: serverTimestamp(),
         });
+
+        setNewMessege("");
     }
  
     return (
@@ -31,14 +31,14 @@ const Chat = ({id}) => {
                     <div key={i} className="messege"><strong>{messege.creator_name}:</strong>&nbsp;{messege.messege}</div>
                 ))}
             </div>
-            <div className='new-messege'>
+            <form  className='new-messege' onSubmit={sendMessege}>
                 <input type="text"
                     className="messege-input"
                     placeholder=" Write messege..."
                     value={newMessege}
                     onChange={e => setNewMessege(e.target.value)}/>
-                <button className='send-button' onClick={sendMessege}>Send</button>
-            </div>
+                <button className='send-button' type="submit">Send</button>
+            </form>
         </div>
     )
 }
