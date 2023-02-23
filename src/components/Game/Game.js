@@ -4,7 +4,7 @@ import Chat from '../Chat/Chat';
 import './Game.css';
 import { doc, updateDoc, Timestamp } from "firebase/firestore";
 import { auth, db } from '../../firebase';
-import Mastermind from '../Mastermind/Mastermind';
+import Mastermind from '../Mastermind/Mastermind/Mastermind';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../../App';
@@ -94,9 +94,8 @@ const Game = () => {
                             <>
                                 Waiting for the second player...
                                 <br/>
-                                <br/>
                                 <h4>Send the link below to your friend</h4>
-                                {window.location.href}
+                                <div className='link'>{window.location.href}</div>
                             </>
                         :
                             isCountingDown ? <CountDown onStart={startGame} startDate={game?.started}/>
@@ -113,7 +112,7 @@ const Game = () => {
                     </div>
                 </>
             :
-                "Game does not exist, check whether the URL is correct"
+                <div className='wrong-url'>Game does not exist, check whether the URL is correct</div>
             }
         </div>
     )

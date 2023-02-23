@@ -15,13 +15,14 @@ const Chat = ({id}) => {
     
     const sendMessege = async (e) => {
         e.preventDefault();
-        await addDoc(collection(db, "games", id, "messeges"),  {
-            creator_name: userName,  
-            messege: newMessege,
-            createdAt: serverTimestamp(),
-        });
-
-        setNewMessege("");
+        if(newMessege?.length) {
+            await addDoc(collection(db, "games", id, "messeges"),  {
+                creator_name: userName,  
+                messege: newMessege,
+                createdAt: serverTimestamp(),
+            });
+            setNewMessege("");
+        }
     }
  
     return (

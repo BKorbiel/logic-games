@@ -18,7 +18,6 @@ const UserForm = () => {
                 <div>
                     <p>
                         <input type="text"
-                            name="" id=""
                             className="name-input"
                             placeholder="Name"
                             value={name}

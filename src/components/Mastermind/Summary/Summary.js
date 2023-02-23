@@ -54,21 +54,21 @@ const Summary = ({game, id, thisPlayer, secondPlayer} ) => {
           Your time: <ConvertTime count={thisPlayer.finish - game.started-10}/>
         </div>
         <div className='game-summary-container'>
-          {secondPlayer?.name}s game:
+          {secondPlayer?.name}'s game:
           <div className='game-summary'>
             <MainBoard gameStatus={secondPlayerGameStatus} isPlaying={false} code={game.code}/>
             <Feedback gameStatus={secondPlayerGameStatus}/>
           </div>
-          {secondPlayer.finish ? <div>{secondPlayer.name}s time: <ConvertTime count={secondPlayer.finish - game.started-10}/></div> 
+          {secondPlayer.finish ? <div>{secondPlayer.name}'s time: <ConvertTime count={secondPlayer.finish - game.started-10}/></div> 
           : 
             <div>Waiting for {secondPlayer.name} to finish...</div>
           }
         </div>
         <div>
           {secondPlayer.finish &&
-            <div>{secondPlayer.finish && calculateWinner()}</div>
+            <div className='winner'>{secondPlayer.finish && calculateWinner()}</div>
           }
-          <div onClick= {() => navigate('/')} >New game</div>
+          <div className="new-game" onClick= {() => navigate('/')} >New game</div>
         </div>
       </div>
     </div>

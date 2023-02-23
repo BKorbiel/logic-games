@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import Game from './Game/Game';
+import Game from '../Game/Game';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc, Timestamp, updateDoc } from 'firebase/firestore';
-import { db, auth } from '../../firebase';
-import Summary from './Summary/Summary';
+import { db, auth } from '../../../firebase';
+import Summary from '../Summary/Summary';
+import './Mastermind.css';
 
 const CountDown = ({startDate}) => {
   const [counter, setCounter] = useState(Timestamp.fromDate(new Date()) - startDate-10);
@@ -75,15 +76,14 @@ const Mastermind = ({id}) => {
   }, [game]);
 
   return (
-    <div>
-      <div>Mastermind</div>
+    <div className='mastermind'>
       {thisPlayerFinished ? <Summary game={game} id={id} thisPlayer={game.members.find(m => m.uid === currentUser.uid)} secondPlayer={game.members.find(m => m.uid != currentUser.uid)}/>
       :
-        <>
-          <div><CountDown startDate={game?.started || 0}/></div>
-          {secondPlayerFinished && <div>The other player has already finished the game</div>}
+        <div className='container'>
+          <div className='countdown'><CountDown startDate={game?.started || 0}/></div>
+          {secondPlayerFinished && <div className='info'>The second player has already finished the game</div>}
           <div><Game id={id} colors={colors}/></div>
-        </>
+        </div>
     }
     </div>
     )

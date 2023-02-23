@@ -1,13 +1,40 @@
 .game-app {
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid rgba(27, 31, 35, .15);
+    font-family: Verdana;
     text-align: center;
     font-size: 40px;
     display: flex;
+    flex-wrap: wrap;
+    min-width: 1080px;
 }
 .chat-app {
+    margin-left: 20px;
     width: 25%;
+    color: black;
     min-width: 200px;
+    border-radius: 4%;
 }
 
 .game {
     width: 70%;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.link {
+    font-size: 20px;
+}
+
+.wrong-url {
+    background-color: white;
+    border-radius: 15px;
+    border: 5px solid rgb(141, 80, 136);
+    padding: 10px;
 }

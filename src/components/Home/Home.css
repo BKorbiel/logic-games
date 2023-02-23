@@ -49,7 +49,8 @@
     cursor: pointer;
     border: 1px solid #000;
     border-radius: 5px;
-    color: #000
+    color: #000;
+    box-sizing: border-box;
 }
 
 #select option:checked {

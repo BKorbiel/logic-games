@@ -27,11 +27,15 @@ const MainBoard = ({gameStatus, onCheck, selectedColor, isPlaying, code}) => {
         setCurrentRowColors(["darkgray", "darkgray", "darkgray", "darkgray"]);
     }
     return (
-        <div className='bambo'>
+        <div className='main-board'>
             <div className='board'>
                 {attempts.map((color, i) =>(
                     <div key={i} onClick={() => handleClick(Math.floor(i/4), i%4)} className='color-container'>
-                        <div className='color' style={{backgroundColor: Math.floor(i/4)==currentRow ? currentRowColors[i%4] : color}}></div>
+                        <div 
+                            className={ Math.floor(i/4)===currentRow ? 'color-to-click' : 'color'} 
+                            style={{backgroundColor: Math.floor(i/4)===currentRow ? currentRowColors[i%4] : color}}
+                        >
+                        </div>
                     </div>
                 ))}
                 <div className='color-container'></div>
@@ -52,7 +56,7 @@ const MainBoard = ({gameStatus, onCheck, selectedColor, isPlaying, code}) => {
                     ))
                 }
             </div>
-            {isPlaying && <div className='Check' onClick={() => handleCheck()}>Check</div>}
+            {isPlaying && <div className='check' onClick={() => handleCheck()}>Check</div>}
         </div>
     )
 }

@@ -1,32 +1,55 @@
-.bambo {
+.main-board {
     display: flex;
     flex-direction: column;
 }
 .board {
     width: 200px;
-    height: 600px;
+    height: 550px;
     background-color: gray;
     margin: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
+    border-radius: 12px;
+    padding: 5px;
 }
 
 .color-container{
     margin: 0;
     margin-right: auto;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background-color: gray;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.color {
-    width: 40px;
-    height: 40px;
+.color, .color-to-click {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: rgb(150, 146, 146);
+}
+
+.color-to-click:hover {
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+.check {
+    margin-bottom: 10px;
+    background-color: #4CAF50;
+	border: 1px solid rgba(27, 31, 35, .15);
+	color: white;
+	border-radius: 6px;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.check:hover {
+    border: 1px solid black;
 }

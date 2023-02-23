@@ -81,15 +81,15 @@ const Game = ({id, colors}) => {
 
   return (
     <div className='board-container'>
+      <div className='select-label'>Select color:</div>
       <div className='colors-to-select'>
-        Select color:
         {colors.map((color, i) => (
           <div 
             onClick={() => setSelectedColor(color)} 
             key={i} 
-            className="color-container"
+            className="color-to-select-container"
           >
-              <div className={selectedColor==color ? "selected-color" : "color"} style={{backgroundColor: color}}></div>
+              <div className={selectedColor==color ? "selected-color" : "color-to-select"} style={{backgroundColor: color}}></div>
           </div>
         ))}
       </div>
