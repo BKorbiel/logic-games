@@ -17,7 +17,8 @@ const Chat = ({id}) => {
         e.preventDefault();
         if(newMessege?.length) {
             await addDoc(collection(db, "games", id, "messeges"),  {
-                creator_name: userName,  
+                creator_name: userName,
+                creator_id: currentUser.uid,
                 messege: newMessege,
                 createdAt: serverTimestamp(),
             });
@@ -29,7 +30,12 @@ const Chat = ({id}) => {
         <div className='chat-container'>
             <div className='messeges-container'>
                 {messeges && messeges.map((messege, i) => (
-                    <div key={i} className="messege"><strong>{messege.creator_name}:</strong>&nbsp;{messege.messege}</div>
+                    <div key={i} className={messege.creator_id===currentUser.uid ? "sent" : "received"}>
+                        <div className='messege'>
+                            <div className='messege-creator'>{messege.creator_name}</div>
+                            <div className='messege-messege'>{messege.messege}</div>
+                        </div>
+                    </div>
                 ))}
             </div>
             <form  className='new-messege' onSubmit={sendMessege}>

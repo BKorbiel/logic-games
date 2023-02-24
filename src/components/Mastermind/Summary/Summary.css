@@ -1,5 +1,6 @@
 .summary {
     display: flex;
+    max-width: 100%;
 }
 
 .game-summary {
@@ -7,7 +8,6 @@
 }
 
 .new-game {
-    margin-top: 30px;
     background-color: #4CAF50;
 	border: 1px solid rgba(27, 31, 35, .15);
 	color: white;

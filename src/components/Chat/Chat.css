@@ -4,7 +4,7 @@
     position: relative;
     margin-bottom: 1px;
     border-top: 1px solid black;
-    font-family: Verdana;
+    font-family: "Helvetica Neue" sans-serif;
 }
 
 .new-messege {
@@ -18,13 +18,13 @@
 
 .messege-input {
     margin-left: 1%;
-    width: 79%;
+    width: 69%;
     background-color: #FEFEFE;
     border-radius: 10px;
 }
 
 .send-button {
-    width:20%;
+    width:30%;
     min-width: 55px;
     background-color: #4CAF50;
 	border: 1px solid rgba(27, 31, 35, .15);
@@ -34,12 +34,6 @@
     border-radius: 10px;
 }
 
-.messege {
-    font-size: 15px;
-    text-align: left;
-    max-width: calc(100% - 7px);
-    word-wrap: break-word;
-}
 
 .messeges-container {
     padding: 5px;
@@ -49,16 +43,63 @@
 
 .messeges-container::-webkit-scrollbar {
     width: 8px;
-  }
-  
-  .messeges-container::-webkit-scrollbar-track {
+}
+
+.messeges-container::-webkit-scrollbar-track {
     background: #A0A0A0; 
   }
-   
+  
   .messeges-container::-webkit-scrollbar-thumb {
     background: #505050; 
-  }
-  
-  .messeges-container::-webkit-scrollbar-thumb:hover {
+}
+
+.messeges-container::-webkit-scrollbar-thumb:hover {
     background: #303030; 
-  }
+}
+
+.sent {
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: right;
+    max-width: calc(100% - 7px);
+}
+
+.received {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    max-width: calc(100% - 7px);
+}
+
+.messege {
+    margin-top: 10px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.messege-creator {
+    padding: 0 5px 0 5px;
+    max-width: 100%;
+    word-wrap: break-word;
+    font-size: 10px;
+}
+
+.messege-messege {
+    text-align: left;
+    max-width: 100%;
+    padding: 7px;
+    font-size: 17px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.sent .messege-messege {
+    color: white;
+    background-color: #0b93f6;
+}
+
+.received .messege-messege {
+    color: black;
+    background-color: #e5e5ea;
+}

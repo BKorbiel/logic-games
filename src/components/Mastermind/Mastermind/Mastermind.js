@@ -5,31 +5,7 @@ import { doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase';
 import Summary from '../Summary/Summary';
 import './Mastermind.css';
-
-const CountDown = ({startDate}) => {
-  const [counter, setCounter] = useState(Timestamp.fromDate(new Date()) - startDate-10);
-
-  useEffect(() => {
-    setTimeout(() => setCounter(Timestamp.fromDate(new Date()) - startDate-10), 100);
-  }, [counter, startDate]);
-
-  return (
-    <div>
-      {counter &&
-        <div>
-          Your time: <br/>
-          {Math.floor(counter/(60 * 60)) /*hours*/}
-          :
-          {Math.floor((counter/(60))%60) /*minutes*/}
-          :
-          {Math.floor(counter%60) /*seconds*/}
-          :
-          {Math.floor(((counter)*10)%10) /*milisecs*/}
-        </div>
-      }
-    </div>
-  );
-}
+import CountDown from '../../CountDown.js';
 
 //10 rows, 4 columns
 //easy - 4 colors

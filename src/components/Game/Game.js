@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Chat from '../Chat/Chat';
-import './Game.css';
 import { doc, updateDoc, Timestamp } from "firebase/firestore";
 import { auth, db } from '../../firebase';
-import Mastermind from '../Mastermind/Mastermind/Mastermind';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../../App';
+import './Game.css';
+import Chat from '../Chat/Chat';
+import Mastermind from '../Mastermind/Mastermind/Mastermind';
+import Sudoku from '../Sudoku/Sudoku/Sudoku';
 
 const CountDown = ({onStart, startDate}) => {
     const [counter, setCounter] = useState(Math.floor(11-(Timestamp.fromDate(new Date()) - startDate)));
@@ -103,7 +104,7 @@ const Game = () => {
                                 game.game=="mastermind" ?
                                     <Mastermind id={id}/>
                                 :
-                                    "siema"
+                                    <Sudoku id={id}/>
                         }
                     </div>
                     <div className='chat-app'>

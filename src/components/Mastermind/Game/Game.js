@@ -81,17 +81,13 @@ const Game = ({id, colors}) => {
 
   return (
     <div className='board-container'>
-      <div className='select-label'>Select color:</div>
       <div className='colors-to-select'>
-        {colors.map((color, i) => (
-          <div 
-            onClick={() => setSelectedColor(color)} 
-            key={i} 
-            className="color-to-select-container"
-          >
-              <div className={selectedColor==color ? "selected-color" : "color-to-select"} style={{backgroundColor: color}}></div>
-          </div>
-        ))}
+          <div className='select-label'>Select color:</div>
+          <select id="select-color" multiple onChange={(e) => setSelectedColor(e.target.value)}>
+            {colors.map((color, i) => (
+                <option value={color} style={{backgroundColor: color}}>{color}</option>
+            ))}
+          </select>
       </div>
       <MainBoard gameStatus={gameStatus} onCheck={handleCheck} selectedColor={selectedColor} isPlaying={true}/>
       <Feedback gameStatus={gameStatus}/>
