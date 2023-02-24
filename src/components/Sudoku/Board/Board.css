@@ -1,0 +1,17 @@
+.sudoku-board {
+    width: 315px;
+    height: 315px;
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.cell {
+    border: 1px solid black;
+    width: 35px;
+    height: 35px;
+    box-sizing: border-box;
+}

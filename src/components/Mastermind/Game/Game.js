@@ -5,10 +5,11 @@ import { db, auth } from '../../../firebase';
 import './Game.css';
 import Feedback from '../Feedback/Feedback';
 import MainBoard from '../MainBoard/MainBoard';
+import { LoadingSpinner } from '../../../App';
 
 const Game = ({id, colors}) => {
   const {currentUser} = auth;
-  const [game] = useDocumentData(doc(db, "games", id));
+  const [game, loading] = useDocumentData(doc(db, "games", id));
   const [gameStatus] = useDocumentData(doc(db, "games", id, "gameStatus", currentUser?.uid));
   const [selectedColor, setSelectedColor] = useState(null);
 
@@ -77,6 +78,10 @@ const Game = ({id, colors}) => {
         updateDoc(doc(db, "games", id), {members: updatedMembers});
       }
     }
+  }
+
+  if (loading) {
+    return <LoadingSpinner />
   }
 
   return (

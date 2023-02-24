@@ -53,7 +53,6 @@ const Game = () => {
 
                 setWaitingForSecondPlayer(false);
                 setIsCountingDown(true);
-                console.log(1);
             } else {
                 setWaitingForSecondPlayer(true);
             }
@@ -67,13 +66,11 @@ const Game = () => {
             }
             if (!gameStarted) {
                 setIsCountingDown(true);
-                console.log(2);
             }
         } 
     }, [game]);
 
     const startGame = () => {
-        console.log(3);
         setIsCountingDown(false);
         setGameStarted(true);
     }

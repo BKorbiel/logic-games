@@ -6,6 +6,7 @@ import { db, auth } from '../../../firebase';
 import Summary from '../Summary/Summary';
 import './Mastermind.css';
 import CountDown from '../../CountDown.js';
+import { LoadingSpinner } from '../../../App';
 
 //10 rows, 4 columns
 //easy - 4 colors
@@ -14,7 +15,7 @@ import CountDown from '../../CountDown.js';
 const Mastermind = ({id}) => {
   const { currentUser } = auth;
   const [colors, setColors] = useState(["blue", "green", "yellow", "red"]);
-  const [game] = useDocumentData(doc(db, "games", id));
+  const [game, loading] = useDocumentData(doc(db, "games", id));
   const [thisPlayerFinished, setThisPlayerFinished] = useState(false);
   const [secondPlayerFinished, setSecondPlayerFinished] = useState(false);
 
@@ -50,6 +51,10 @@ const Mastermind = ({id}) => {
       }
     }
   }, [game]);
+
+  if (loading) {
+    <LoadingSpinner/>
+  }
 
   return (
     <div className='mastermind'>
