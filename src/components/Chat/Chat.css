@@ -97,9 +97,11 @@
 .sent .messege-messege {
     color: white;
     background-color: #0b93f6;
+    align-self: self-end;
 }
 
 .received .messege-messege {
     color: black;
     background-color: #e5e5ea;
+    align-self: flex-start;
 }

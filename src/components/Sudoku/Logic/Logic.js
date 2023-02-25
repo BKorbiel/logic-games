@@ -38,7 +38,7 @@ export const getConflicts = (position, board, number) => {
 const solve = (board) => {
     for (let i=0; i<81; i++) {
         if (board[i]===0) {
-            for (let j=0; j<100; j++) {
+            for (let j=0; j<10; j++) {
                 const number = Math.floor(Math.random() * 9) + 1;
                 if (getConflicts(i, board, number).length===0) {
                     board[i]=number;
@@ -80,7 +80,7 @@ const hasUniqueSolution = (board) => {
     return true;
 }
 
-export const setNewBoard = () => {
+export const setNewBoard = (difficulty) => {
     let board = Array(81).fill(0);
     solve(board); //create filled board
 
@@ -90,16 +90,32 @@ export const setNewBoard = () => {
     }
     positions.sort(() => Math.random() - 0.5);  //shuffle positions to remove from board
 
+    let maxPositionsToRemoveCount;
+    switch (difficulty) {
+        case 'easy':
+            maxPositionsToRemoveCount = 30;
+            break;
+        case 'normal':
+            maxPositionsToRemoveCount = 50;
+            break;
+        case 'hard':
+            maxPositionsToRemoveCount = 81;
+    }
 
+    let removedPositionsCount = 0; 
     for (let i = 0; i < 81; i++) {  //removing positions and checking if the board still has unique solution
-        console.log(i);
         let positionToRemove = positions[i];
         let cellValue = board[positionToRemove];
 
         board[positionToRemove] = 0;
         if (!hasUniqueSolution(board)) {
             board[positionToRemove] = cellValue;
-        } 
+        } else {
+            removedPositionsCount +=1;
+            if (removedPositionsCount >= maxPositionsToRemoveCount ) {
+                break;
+            }
+        }
     }
 
     return board;

@@ -3,7 +3,7 @@ import Game from '../Game/Game';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { doc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase';
-import Summary from '../Summary/Summary';
+import Summary from '../../Summary/Summary';
 import './Mastermind.css';
 import CountDown from '../../CountDown.js';
 import { LoadingSpinner } from '../../../App';
@@ -62,8 +62,8 @@ const Mastermind = ({id}) => {
       :
         <div className='container'>
           <div className='countdown'><CountDown startDate={game?.started || 0}/></div>
-          {secondPlayerFinished && <div className='info'>The second player has already finished the game</div>}
           <div><Game id={id} colors={colors}/></div>
+          {secondPlayerFinished && <div className='info'>The second player has already finished the game</div>}
         </div>
     }
     </div>

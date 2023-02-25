@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CountDown from '../../CountDown';
 import { LoadingSpinner } from '../../../App';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db, auth } from '../../../firebase';
 import { setNewBoard } from '../Logic/Logic';
 import Board from '../Board/Board';
 import './Sudoku.css';
 import { ClearOutlined } from '@ant-design/icons';
-import Summary from '../Summary/Summary';
+import Summary from '../../Summary/Summary';
 
 const Sudoku = ({id}) => {
   const {currentUser} = auth;
@@ -22,7 +22,7 @@ const Sudoku = ({id}) => {
       const creator = game.members.find(m => m.creator === true);
       if (currentUser.uid==creator.uid) {
 
-        const board = setNewBoard();
+        const board = setNewBoard(game.difficulty);
         updateDoc(doc(db, "games", id), {startingBoard: board});
 
         game.members.forEach(member => {
@@ -51,6 +51,7 @@ const Sudoku = ({id}) => {
       if (updatedMembers[i].uid == currentUser.uid) {
         updatedMembers[i].finish = finish;
         updateDoc(doc(db, "games", id), {members: updatedMembers});
+        setThisPlayerFinished(true);
       }
     }
   }
@@ -61,21 +62,28 @@ const Sudoku = ({id}) => {
 
 
   return (
-    <div>
-      <div><CountDown startDate={game.started}/></div>
-      <div><Board game={game} gameId={id} userId={currentUser.uid} selectedNumber={selectedNumber} onFinish={endTheGame}/></div>
-      <br/>
-      <div className='numbers-container'>
-        {Array(9).fill(null).map((v, i) => (
-          <div key={i} className={i+1 === selectedNumber ? 'selected-number' : 'number-to-select'} onClick={() => setSelectedNumber(i+1)}>
-            {i+1}
+    <div className='sudoku'>
+      {thisPlayerFinished ? <Summary game={game} id={id} thisPlayer={game.members.find(m => m.uid === currentUser.uid)} secondPlayer={game.members.find(m => m.uid != currentUser.uid)}/>
+      :
+      (<div className='sudoku-game'>
+        <div className='countdown'><CountDown startDate={game.started}/></div>
+        <br/>
+        <Board game={game} userId={currentUser.uid} selectedNumber={selectedNumber} onFinish={endTheGame} isPlaying={true}/>
+        <br/>
+        <div className='numbers-container'>
+          {Array(9).fill(null).map((v, i) => (
+            <div key={i} className={i+1 === selectedNumber ? 'selected-number' : 'number-to-select'} onClick={() => setSelectedNumber(i+1)}>
+              {i+1}
+            </div>
+          ))}
+          <div className={selectedNumber === 0 ? 'selected-number' : 'number-to-select'} onClick={() => setSelectedNumber(0)}>
+            <ClearOutlined/>
           </div>
-        ))}
-        <div className={selectedNumber === 0 ? 'selected-number' : 'number-to-select'} onClick={() => setSelectedNumber(0)}>
-          <ClearOutlined/>
         </div>
-      </div>
-      <div onClick={() => endTheGame()}>End the game</div>
+        <br/>
+        <div className="end" onClick={() => endTheGame()}>End the game</div>
+        {secondPlayerFinished && <div className='info'>The second player already finished the game</div>}
+      </div>)}
     </div>
   )
 }

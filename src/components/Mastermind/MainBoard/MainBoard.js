@@ -26,14 +26,15 @@ const MainBoard = ({gameStatus, onCheck, selectedColor, isPlaying, code}) => {
         setCurrentRow(currentRow+1);
         setCurrentRowColors(["darkgray", "darkgray", "darkgray", "darkgray"]);
     }
+
     return (
         <div className='main-board'>
             <div className='board'>
                 {attempts.map((color, i) =>(
                     <div key={i} onClick={() => handleClick(Math.floor(i/4), i%4)} className='color-container'>
                         <div 
-                            className={ Math.floor(i/4)===currentRow ? 'color-to-click' : 'color'} 
-                            style={{backgroundColor: Math.floor(i/4)===currentRow ? currentRowColors[i%4] : color}}
+                            className={ (isPlaying && Math.floor(i/4)===currentRow) ? 'color-to-click' : 'color'} 
+                            style={{backgroundColor: (isPlaying && Math.floor(i/4)===currentRow) ? currentRowColors[i%4] : color}}
                         >
                         </div>
                     </div>

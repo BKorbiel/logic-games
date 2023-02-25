@@ -1,10 +1,20 @@
 .summary {
     display: flex;
     max-width: 100%;
+    margin-top: 5px;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .game-summary {
     display: flex;
+    justify-content: center;
+}
+
+.game-summary-container {
+    font-size: 25px;
+    align-items: center;
+    width: 50%;
 }
 
 .new-game {
@@ -15,20 +25,23 @@
     padding: 4px;
     font-size: 20px;
     cursor: pointer;
-    flex-shrink: 0;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 .new-game:hover {
     border: 1px solid black;
 }
 
-.game-summary-container {
-    font-size: 25px;
-}
 
 .winner {
     padding: 5px;
     font-size: 20px;
     background-color: #EEEEEE;
     border-radius: 10px;
+    margin-top: 5px;
+}
+
+.result-container {
+    display: inline-block;
 }

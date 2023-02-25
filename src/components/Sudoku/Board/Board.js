@@ -5,8 +5,8 @@ import { db } from '../../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getConflicts } from '../Logic/Logic';
 
-const Board = ({game, gameId, userId, selectedNumber}) => {
-    const [gameStatus] = useDocumentData(doc(db, "games", gameId, "gameStatus", userId));
+const Board = ({game, userId, selectedNumber, onFinish, isPlaying}) => {
+    const [gameStatus] = useDocumentData(doc(db, "games", game.gameId, "gameStatus", userId));
 
     const setStyle = (position) => {
         let style = {};
@@ -21,13 +21,13 @@ const Board = ({game, gameId, userId, selectedNumber}) => {
         }
 
         if (gameStatus.currentBoard[position]===0) {
-            if (selectedNumber!=0) {
+            if (isPlaying && selectedNumber!=0) {
                 style.cursor= "pointer";
             }
         }
         else if (game.startingBoard[position]===0) {
             style.color = "blue";
-            if (selectedNumber===0) {
+            if (isPlaying && selectedNumber===0) {
                 style.cursor="pointer";
             }
         }
@@ -36,6 +36,9 @@ const Board = ({game, gameId, userId, selectedNumber}) => {
     }
 
     const handleClick = (position) => {
+        if (!isPlaying) {
+            return;
+        }
         if (selectedNumber===0) { //clear button is selected
             if (gameStatus.currentBoard[position]!=0 && game.startingBoard[position]===0) {
                 
@@ -53,7 +56,7 @@ const Board = ({game, gameId, userId, selectedNumber}) => {
                 const newBoard = gameStatus.currentBoard;
                 newBoard[position] = 0;
 
-                updateDoc(doc(db,"games", gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: updatedConflicts});
+                updateDoc(doc(db,"games", game.gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: updatedConflicts});
             }
         }
         else {
@@ -67,11 +70,18 @@ const Board = ({game, gameId, userId, selectedNumber}) => {
                 }
 
                 if (gameStatus.conflicts) {
-                    updateDoc(doc(db,"games", gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: gameStatus.conflicts.concat(newConflicts)});
+                    updateDoc(doc(db,"games", game.gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: gameStatus.conflicts.concat(newConflicts)});
                 } else {
-                    updateDoc(doc(db,"games", gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: newConflicts});
+                    updateDoc(doc(db,"games", game.gameId, "gameStatus", userId), {currentBoard: newBoard, conflicts: newConflicts});
+                }
+
+                //check if finished
+                const ind = newBoard.indexOf(0);
+                if (newConflicts.length===0 && ind===-1) {
+                    onFinish();
                 }
             }
+
         }
 
     }

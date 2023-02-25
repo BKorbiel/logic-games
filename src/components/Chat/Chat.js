@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {auth, db} from '../../firebase';
 import { collection, serverTimestamp, addDoc, orderBy, query } from "firebase/firestore";
 import './Chat.css';
@@ -11,7 +11,7 @@ const Chat = ({id}) => {
     const [newMessege, setNewMessege] = useState("");
     const { currentUser } = auth;
     const userName = localStorage.getItem('userName');
-
+    const newMessegeRef = useRef();
     
     const sendMessege = async (e) => {
         e.preventDefault();
@@ -23,6 +23,7 @@ const Chat = ({id}) => {
                 createdAt: serverTimestamp(),
             });
             setNewMessege("");
+            newMessegeRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }
  
@@ -37,6 +38,7 @@ const Chat = ({id}) => {
                         </div>
                     </div>
                 ))}
+                <div ref={newMessegeRef}></div>
             </div>
             <form  className='new-messege' onSubmit={sendMessege}>
                 <input type="text"
