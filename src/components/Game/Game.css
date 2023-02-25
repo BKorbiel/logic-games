@@ -1,7 +1,4 @@
 .game-app {
-    background-color: white;
-    border-radius: 15px;
-    border: 1px solid rgba(27, 31, 35, .15);
     font-family: Verdana;
     text-align: center;
     font-size: 40px;
@@ -10,18 +7,21 @@
     min-width: 1085px;
 }
 .chat-app {
-    margin-left: auto;
+    margin-left: 2%;
     margin-right: 5px;
     width: 20%;
     color: black;
     min-width: 100px;
-    border-radius: 4%;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid rgba(27, 31, 35, .15);
 }
 
 .game {
     width: 70%;
     background-color: white;
     border-radius: 15px;
+    border: 1px solid rgba(27, 31, 35, .15);
     text-align: center;
     display: flex;
     flex-direction: column;

@@ -92,6 +92,7 @@ export const setNewBoard = () => {
 
 
     for (let i = 0; i < 81; i++) {  //removing positions and checking if the board still has unique solution
+        console.log(i);
         let positionToRemove = positions[i];
         let cellValue = board[positionToRemove];
 
