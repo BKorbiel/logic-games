@@ -9,6 +9,7 @@ import './Game.css';
 import Chat from '../Chat/Chat';
 import Mastermind from '../Mastermind/Mastermind/Mastermind';
 import Sudoku from '../Sudoku/Sudoku/Sudoku';
+import Chess from '../Chess/Chess';
 
 const CountDown = ({onStart, startDate}) => {
     const [counter, setCounter] = useState(Math.floor(11-(Timestamp.fromDate(new Date()) - startDate)));
@@ -23,6 +24,17 @@ const CountDown = ({onStart, startDate}) => {
     return (
         <div>Game starts in:<br/>{counter} seconds</div>
     );
+}
+
+const GameType = ({type, id}) => {
+    switch (type) {
+        case "mastermind":
+            return <Mastermind id={id}/>
+        case "sudoku":
+            return <Sudoku id={id}/>
+        case "chess":
+            return <Chess id={id}/>
+    }
 }
 
 const Game = () => {
@@ -45,6 +57,13 @@ const Game = () => {
                     uid: currentUser.uid,
                     name: localStorage.getItem("userName"),
                     creator: false
+                }
+                if (game.game==="chess") {
+                    if (creator.color==="white") {
+                        user.color = "black";
+                    } else {
+                        user.color = "white";
+                    }
                 }
                 const updatedMembers = [...game.members, user];
                 const start = Timestamp.fromDate(new Date());
@@ -98,10 +117,7 @@ const Game = () => {
                         :
                             isCountingDown ? <CountDown onStart={startGame} startDate={game?.started}/>
                             :
-                                game.game=="mastermind" ?
-                                    <Mastermind id={id}/>
-                                :
-                                    <Sudoku id={id}/>
+                                <GameType type={game.game} id={id}/>
                         }
                     </div>
                     <div className='chat-app'>

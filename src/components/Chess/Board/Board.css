@@ -1,0 +1,36 @@
+.chess-board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 560px;
+    height: 560px;
+    border: 2px solid black;
+}
+
+.white-square {
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(239, 223, 191);
+}
+
+.black-square {
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(179, 163, 131);
+}
+
+.piece {
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
