@@ -99,7 +99,7 @@ const Game = ({id, colors}) => {
         <Feedback gameStatus={gameStatus}/>
       </div>
       <br/>
-      <div className='end' onClick={() => endTheGame()}>End the game</div>
+      <div className='end' onClick={() => endTheGame()}>Surrender</div>
     </>
   )
 }

@@ -43,6 +43,13 @@ const Home = () => {
         'white_rook', 'white_knight', 'white_bishop', 'white_queen', 'white_king', 'white_bishop', 'white_knight', 'white_rook'
       ];
       game.currentMove = "white";
+      game.castles = {
+        blackLeftCastle: true,
+        blackRightCastle: true,
+        whiteLeftCastle: true,
+        whiteRightCastle: true,
+      }
+      game.enpassant = -1;
     }
 
     await setDoc(doc(db, "games", game.gameId), game); 

@@ -81,7 +81,7 @@ const Sudoku = ({id}) => {
           </div>
         </div>
         <br/>
-        <div className="end" onClick={() => endTheGame()}>End the game</div>
+        <div className="end" onClick={() => endTheGame()}>Surrender</div>
         {secondPlayerFinished && <div className='info'>The second player already finished the game</div>}
       </div>)}
     </div>
