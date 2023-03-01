@@ -22,7 +22,7 @@ const UserForm = () => {
                             placeholder="Name"
                             value={name}
                             onChange={e => setName(e.target.value)}
-                            maxlength="20"
+                            maxLength="20"
                             required />
 
                     </p>

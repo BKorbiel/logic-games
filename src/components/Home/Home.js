@@ -118,16 +118,16 @@ const Home = () => {
           {selectedGame==="mastermind" && 
             <>
               <br/>
-              <a href="https://en.wikipedia.org/wiki/Mastermind_(board_game)">Wikipedia</a>
-              <br/>
+              <a target="_blank" href="https://en.wikipedia.org/wiki/Mastermind_(board_game)">Wikipedia</a>
+              <br/><br/>
               The first player to guess the code wins
             </>
           }
           {selectedGame==="sudoku" && 
             <>
               <br/>
-              <a href="https://en.wikipedia.org/wiki/Sudoku">Wikipedia</a>
-              <br/>
+              <a target="_blank" href="https://en.wikipedia.org/wiki/Sudoku">Wikipedia</a>
+              <br/><br/>
               The first player to solve the sudoku wins
             </>
           }
@@ -139,13 +139,13 @@ const Home = () => {
                 <option value="black">Black</option>
                 <option value="random">Random</option>
               </select>
-              <h2>Choose time control</h2>
+              <h2>Choose time limit</h2>
               <select id="select" multiple onChange={(e) => setTimeControl(e.target.value)} required>
                 <option value={3}>3 minutes</option>
                 <option value={5}>5 minutes</option>
                 <option value={10}>10 minutes</option>
                 <option value={20}>20 minutes</option>
-                <option value={0}>No time control</option>
+                <option value={0}>No time limit</option>
               </select>
             </>
           }
