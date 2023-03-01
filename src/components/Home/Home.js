@@ -44,7 +44,11 @@ const setChessGame = (game, selectedColor, timeControl) => {
   } else {
     game.members[0].color = selectedColor;
   }
-  game.timeControl = parseInt(timeControl);
+  if (timeControl!=0) {
+    game.timeControl = parseInt(timeControl);
+  } else {
+    game.timeControl = false;
+  }
   game.currentBoard = [
     'black_rook', 'black_knight', 'black_bishop', 'black_queen', 'black_king', 'black_bishop', 'black_knight', 'black_rook',
     'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn',
@@ -141,7 +145,7 @@ const Home = () => {
                 <option value={5}>5 minutes</option>
                 <option value={10}>10 minutes</option>
                 <option value={20}>20 minutes</option>
-                <option value={false}>No time control</option>
+                <option value={0}>No time control</option>
               </select>
             </>
           }

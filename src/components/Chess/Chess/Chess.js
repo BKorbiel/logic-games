@@ -14,7 +14,6 @@ const endTheGame = (game, result) => {
             updatedMembers[i].leftTime = updatedMembers[i].leftTime-(Timestamp.fromDate(new Date())-updatedMembers[i].moveFromTime);
         }
     }
-    console.log(result);
     updateDoc(doc(db, "games", game.gameId), {members: updatedMembers, gameOver: result});
 }
 
