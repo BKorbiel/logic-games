@@ -28,8 +28,7 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.0",
-    "@firebase/firestore": "^3.8.3",
+    "@ant-design/icons": "^5.0.1",
     "express": "^4.17.3",
     "firebase": "^9.17.1",
     "jquery": "^3.6.3",
