@@ -33,7 +33,8 @@
     "firebase": "^9.17.1",
     "jquery": "^3.6.3",
     "react-firebase-hooks": "^5.1.1",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
