@@ -14,32 +14,11 @@ import { LoadingSpinner } from '../../../App';
 //hard - 8 colors
 const Mastermind = ({id}) => {
   const { currentUser } = auth;
-  const [colors, setColors] = useState(["blue", "green", "yellow", "red"]);
   const [game, loading] = useDocumentData(doc(db, "games", id));
   const [thisPlayerFinished, setThisPlayerFinished] = useState(false);
   const [secondPlayerFinished, setSecondPlayerFinished] = useState(false);
 
   useEffect(() => {
-    if (game?.difficulty == "normal") {
-      setColors(["blue", "green", "yellow", "red", "pink", "orange"]);
-    }
-    if (game?.difficulty == "hard") {
-      setColors(["blue", "green", "yellow", "red", "pink", "orange", "brown", "purple"]);
-    }
-
-    //setting code
-    if (game && !game.code) {
-      const creator = game.members.find(m => m.creator === true);
-      if (currentUser.uid==creator.uid) {
-        var code = [];
-        for (let i=0; i<4; i++) {
-          code.push(colors[Math.floor(Math.random() * colors.length)]); 
-        }
-        updateDoc(doc(db, "games", id), {code: code});
-        game.code=code;
-      }
-    }
-
     for (let i=0; i<2; i++) {
       if (game?.members[i]?.finish) {
         if (game?.members[i].uid==currentUser?.uid) {
@@ -62,7 +41,7 @@ const Mastermind = ({id}) => {
       :
         <div className='container'>
           <div className='countdown'><CountDown startDate={game?.started || 0}/></div>
-          <div><Game id={id} colors={colors}/></div>
+          <div><Game id={id} colors={game?.colors}/></div>
           {secondPlayerFinished && <div className='info'>The second player has already finished the game</div>}
         </div>
     }

@@ -18,20 +18,6 @@ const Sudoku = ({id}) => {
   const [secondPlayerFinished, setSecondPlayerFinished] = useState(false);
 
   useEffect(() => {
-    if (game && !game.startingBoard) {
-      const creator = game.members.find(m => m.creator === true);
-      if (currentUser.uid==creator.uid) {
-
-        const board = setNewBoard(game.difficulty);
-        updateDoc(doc(db, "games", id), {startingBoard: board});
-
-        game.members.forEach(member => {
-          setDoc(doc(db, "games", id, "gameStatus", member.uid), {currentBoard: board});
-        });
-
-      }
-    }
-
     for (let i=0; i<2; i++) {
       if (game?.members[i]?.finish && currentUser?.uid) {
         if (game.members[i].uid==currentUser.uid) {

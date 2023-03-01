@@ -1,0 +1,124 @@
+.chess-game {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Lucida Console";
+}
+
+.end {
+    font-size: 20px;
+    background-color: #EB5406;
+    padding: 5px;
+    border: 1px solid black;
+    color: white;
+    border-radius: 6px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    align-self: center;
+    margin: 10px;
+}
+
+.end:hover {
+    cursor: pointer;
+    padding: 4px;
+    border: 2px solid black;
+}
+
+.new-game {
+    background-color: #4CAF50;
+	border: 1px solid rgba(27, 31, 35, .15);
+	color: white;
+	border-radius: 6px;
+    padding: 4px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.new-game:hover {
+    border: 1px solid black;
+}
+
+
+.result {
+    padding: 5px;
+    font-size: 25px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.result-container {
+    display: inline-block;
+}
+
+.options {
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+}
+
+.offer-draw {
+    font-size: 20px;
+    background-color: #999999;
+    padding: 5px;
+    border: 1px solid black;
+    color: white;
+    border-radius: 6px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    align-self: center;
+    margin: 10px;
+}
+
+.offer-draw:hover {
+    cursor: pointer;
+    padding: 4px;
+    border: 2px solid black;
+}
+
+.draw-offered {
+    max-width: 50%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.accept, .decline {
+    border-radius: 5px;
+    border: 1px solid black;
+    flex-shrink: 0;
+    display: inline;
+    padding: 5px;
+    margin: 2px;
+    box-sizing: border-box;
+    align-self: center;
+    color: white;
+}
+
+.accept:hover, .decline:hover {
+    border: 2px solid black;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.accept {
+    background-color: #4CAF50;
+}
+
+.decline {
+    background-color: #EB5406;
+}
+
+.player-name {
+    padding: 5px;
+    margin: 2px;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #663366;
+    display: flex;
+}

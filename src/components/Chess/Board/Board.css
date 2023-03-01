@@ -34,3 +34,15 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.promotion {
+    border: 4px solid black;
+    background-color: white;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 280px;
+    left: 280px;
+    cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { doc, updateDoc, Timestamp } from "firebase/firestore";
+import { doc, updateDoc, Timestamp, setDoc } from "firebase/firestore";
 import { auth, db } from '../../firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import './Game.css';
 import Chat from '../Chat/Chat';
 import Mastermind from '../Mastermind/Mastermind/Mastermind';
 import Sudoku from '../Sudoku/Sudoku/Sudoku';
-import Chess from '../Chess/Chess';
+import Chess from '../Chess/Chess/Chess';
 
 const CountDown = ({onStart, startDate}) => {
     const [counter, setCounter] = useState(Math.floor(11-(Timestamp.fromDate(new Date()) - startDate)));
@@ -59,13 +59,25 @@ const Game = () => {
                     creator: false
                 }
                 if (game.game==="chess") {
+                    let date = new Date();
+                    date.setSeconds(date.getSeconds() + 12);
                     if (creator.color==="white") {
                         user.color = "black";
+                        creator.moveFromTime = Timestamp.fromDate(date);
                     } else {
                         user.color = "white";
+                        user.moveFromTime = Timestamp.fromDate(date);
+                    }
+                    if (game.timeControl) {
+                        user.leftTime = game.timeControl*60;
+                        creator.leftTime = game.timeControl*60;
                     }
                 }
-                const updatedMembers = [...game.members, user];
+                if (game.game==="sudoku") {
+                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {currentBoard: game.startingBoard});
+                }
+                
+                const updatedMembers = [creator, user];
                 const start = Timestamp.fromDate(new Date());
                 updateDoc(doc(db, "games", id), {members: updatedMembers, status: "started", started: start});
                 game.started=start;

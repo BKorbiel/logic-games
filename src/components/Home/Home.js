@@ -3,12 +3,77 @@ import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from "firebase/firestore"; 
+import { setNewBoard } from '../Sudoku/Logic/Logic';
+
+const setMastermindGame = (game, difficulty) => {
+  game.difficulty = difficulty;
+  setDoc(doc(db, "games", game.gameId), game); 
+  let colors = [];
+  switch (difficulty) {
+    case "easy":
+      colors = ["blue", "green", "yellow", "red"];
+      break;
+    case "normal":
+      colors = ["blue", "green", "yellow", "red", "pink", "orange"];
+      break;
+    case "hard":
+      colors=["blue", "green", "yellow", "red", "pink", "orange", "brown", "purple"];
+  }
+  var code = [];
+  for (let i=0; i<4; i++) {
+    code.push(colors[Math.floor(Math.random() * colors.length)]); 
+  }
+  game.code = code;
+  game.colors = colors;
+  setDoc(doc(db, "games", game.gameId), game);
+}
+
+const setSudokuGame = (game, difficulty) => {
+  game.difficulty = difficulty;
+
+  const board = setNewBoard(difficulty);
+  game.startingBoard = board;
+
+  setDoc(doc(db, "games", game.gameId), game); 
+  setDoc(doc(db, "games", game.gameId, "gameStatus", game.members[0].uid), {currentBoard: board});
+}
+
+const setChessGame = (game, selectedColor, timeControl) => {
+  if (selectedColor==="random") {
+    game.members[0].color = ["white", "black"][Math.floor(Math.random()*2)];
+  } else {
+    game.members[0].color = selectedColor;
+  }
+  game.timeControl = parseInt(timeControl);
+  game.currentBoard = [
+    'black_rook', 'black_knight', 'black_bishop', 'black_queen', 'black_king', 'black_bishop', 'black_knight', 'black_rook',
+    'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn',
+    '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '',
+    'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn',
+    'white_rook', 'white_knight', 'white_bishop', 'white_queen', 'white_king', 'white_bishop', 'white_knight', 'white_rook'
+  ];
+  game.currentMove = "white";
+  game.castles = {
+    blackLeftCastle: true,
+    blackRightCastle: true,
+    whiteLeftCastle: true,
+    whiteRightCastle: true,
+  }
+  game.enpassant = -1;
+  game.gameOver = false;
+  game.drawOffer = false;
+  setDoc(doc(db, "games", game.gameId), game); 
+}
 
 const Home = () => {
   const { currentUser } = auth;
   const [selectedGame, setSelectedGame] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [chessColor, setChessColor] = useState('');
+  const [timeControl, setTimeControl] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,35 +89,15 @@ const Home = () => {
         members: [player],
         gameId: (new Date()).getTime()+Math.random().toString(16).slice(2),
     };
-    if (selectedGame==="mastermind" || selectedGame==="sudoku") {
-      game.difficulty = difficulty;
+    if (selectedGame==="sudoku") {
+      setSudokuGame(game, difficulty);
+    }
+    if (selectedGame==="mastermind") {
+      setMastermindGame(game, difficulty);
     }
     if (selectedGame==="chess") {
-      if (chessColor==="random") {
-        setChessColor(["white", "black"][Math.floor(Math.random()*2)]);
-      }
-      game.members[0].color = chessColor;
-      game.currentBoard = [
-        'black_rook', 'black_knight', 'black_bishop', 'black_queen', 'black_king', 'black_bishop', 'black_knight', 'black_rook',
-        'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn', 'black_pawn',
-        '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '',
-        '', '', '', '', '', '', '', '',
-        'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn', 'white_pawn',
-        'white_rook', 'white_knight', 'white_bishop', 'white_queen', 'white_king', 'white_bishop', 'white_knight', 'white_rook'
-      ];
-      game.currentMove = "white";
-      game.castles = {
-        blackLeftCastle: true,
-        blackRightCastle: true,
-        whiteLeftCastle: true,
-        whiteRightCastle: true,
-      }
-      game.enpassant = -1;
+      setChessGame(game, chessColor, timeControl);
     }
-
-    await setDoc(doc(db, "games", game.gameId), game); 
 
     navigate(`/game/${game.gameId}`);
   }
@@ -89,6 +134,14 @@ const Home = () => {
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="random">Random</option>
+              </select>
+              <h2>Choose time control</h2>
+              <select id="select" multiple onChange={(e) => setTimeControl(e.target.value)} required>
+                <option value={3}>3 minutes</option>
+                <option value={5}>5 minutes</option>
+                <option value={10}>10 minutes</option>
+                <option value={20}>20 minutes</option>
+                <option value={false}>No time control</option>
               </select>
             </>
           }
