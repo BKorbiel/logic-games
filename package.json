@@ -2,6 +2,8 @@
   "name": "logic-games",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
+=======
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
     "@emotion/react": "^11.10.6",
@@ -21,6 +23,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+>>>>>>> cd1e6679d41305114beaf2ca2abc59f8048923f6
   "scripts": {
     "start": "node server.js",
     "dev": "react-scripts start",
@@ -47,7 +50,17 @@
     ]
   },
   "dependencies": {
+<<<<<<< HEAD
+    "@ant-design/icons": "^4.0.0",
+    "@firebase/firestore": "^3.8.3",
+    "express": "^4.17.3",
+    "firebase": "^9.17.1",
+    "jquery": "^3.6.3",
+    "react-firebase-hooks": "^5.1.1",
+    "react-router-dom": "^6.8.2"
+=======
     "express": "^4.17.3"
+>>>>>>> cd1e6679d41305114beaf2ca2abc59f8048923f6
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
