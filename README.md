@@ -29,7 +29,7 @@
 - Sudoku - Players are given the same grid to solve. The player who solves the grid first wins. There are three difficulty levels available, which determine the maximum number of empty cells on a Sudoku grid at the beginning. After finishing their game, the player can observe the opponent's game.
 - Chess - Players can choose pawn color and time limit.
 - Tic Tac Toe - comming soon
-- Minesweepe - comming soon
+- Minesweeper - comming soon
 #### Real-time chat for players in every game.
 
 ## Project Status
