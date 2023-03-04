@@ -12,7 +12,7 @@ import Summary from '../../Summary/Summary';
 const Sudoku = ({id}) => {
   const {currentUser} = auth;
   const [game, loading] = useDocumentData(doc(db, "games", id));
-  const [selectedNumber, setSelectedNumber] = useState(null);
+  const [selectedNumber, setSelectedNumber] = useState(1);
   const [thisPlayerFinished, setThisPlayerFinished] = useState(false);
   const [secondPlayerFinished, setSecondPlayerFinished] = useState(false);
 
