@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from "firebase/firestore"; 
 import { setNewBoard } from '../Sudoku/Logic/Logic';
+import { setGame } from '../Minesweeper/Logic';
 
 const setMastermindGame = (game, difficulty) => {
   game.difficulty = difficulty;
-  setDoc(doc(db, "games", game.gameId), game); 
   let colors = [];
   switch (difficulty) {
     case "easy":
@@ -72,6 +72,18 @@ const setChessGame = (game, selectedColor, timeControl) => {
   setDoc(doc(db, "games", game.gameId), game); 
 }
 
+const setMinesweeperGame = (game, difficulty) => {
+  game.difficulty = difficulty;
+
+  const {grid, rowCount, colCount} = setGame(difficulty);
+  game.grid = grid;
+  game.rowCount = rowCount;
+  game.colCount = colCount;
+
+  setDoc(doc(db, "games", game.gameId), game); 
+  setDoc(doc(db, "games", game.gameId, "gameStatus", game.members[0].uid), {playerBoard: Array(rowCount*colCount).fill(0)});
+}
+
 const Home = () => {
   const { currentUser } = auth;
   const [selectedGame, setSelectedGame] = useState('');
@@ -102,6 +114,9 @@ const Home = () => {
     if (selectedGame==="chess") {
       setChessGame(game, chessColor, timeControl);
     }
+    if (selectedGame==="minesweeper") {
+      setMinesweeperGame(game, difficulty);
+    }
 
     navigate(`/game/${game.gameId}`);
   }
@@ -114,6 +129,7 @@ const Home = () => {
             <option value="mastermind">Mastermind</option>
             <option value="sudoku">Sudoku</option>
             <option value="chess">Chess</option>
+            <option value="minesweeper">Minesweeper</option>
           </select>
           {selectedGame==="mastermind" && 
             <>
@@ -149,7 +165,7 @@ const Home = () => {
               </select>
             </>
           }
-          {(selectedGame==="sudoku"||selectedGame==="mastermind") && (
+          {(selectedGame==="sudoku"||selectedGame==="mastermind"||selectedGame==="minesweeper") && (
             <>
               <h2>Choose a difficulty level</h2>
               <select id="select" multiple onChange={(e) => setDifficulty(e.target.value)} required>

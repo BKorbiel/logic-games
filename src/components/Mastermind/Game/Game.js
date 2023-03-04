@@ -90,7 +90,7 @@ const Game = ({id, colors}) => {
         <div className='colors-to-select'>
             <div className='select-label'>Select color:</div>
             <select id="select-color" multiple onChange={(e) => setSelectedColor(e.target.value)}>
-              {colors.map((color, i) => (
+              {colors?.map((color, i) => (
                   <option key={i} value={color} style={{backgroundColor: color}}>{color}</option>
               ))}
             </select>

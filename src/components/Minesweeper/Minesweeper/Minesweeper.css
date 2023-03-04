@@ -1,0 +1,12 @@
+.minesweeper {
+    font-family: "Lucida Console";
+    width: 100%;
+}
+
+.minesweeper-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

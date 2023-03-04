@@ -10,6 +10,7 @@ import Chat from '../Chat/Chat';
 import Mastermind from '../Mastermind/Mastermind/Mastermind';
 import Sudoku from '../Sudoku/Sudoku/Sudoku';
 import Chess from '../Chess/Chess/Chess';
+import Minesweeper from '../Minesweeper/Minesweeper/Minesweeper';
 
 const CountDown = ({onStart, startDate}) => {
     const [counter, setCounter] = useState(Math.floor(11-(Timestamp.fromDate(new Date()) - startDate)));
@@ -34,6 +35,8 @@ const GameType = ({type, id}) => {
             return <Sudoku id={id}/>
         case "chess":
             return <Chess id={id}/>
+        case "minesweeper":
+            return <Minesweeper id={id}/>
     }
 }
 
@@ -75,6 +78,9 @@ const Game = () => {
                 }
                 if (game.game==="sudoku") {
                     setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {currentBoard: game.startingBoard});
+                }
+                if (game.game==="minesweeper") {
+                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {playerBoard: Array(game.rowCount*game.colCount).fill(0)});
                 }
                 
                 const updatedMembers = [creator, user];

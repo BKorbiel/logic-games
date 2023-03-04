@@ -1,0 +1,51 @@
+.minesweeper-board {
+    margin: 2px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.minesweeper-cell {
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    background-color: darkgray;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.flag-img {
+    width: 15px;
+    height: 15px;
+}
+
+.bomb-img {
+    max-width: 15px;
+    max-height: 15px;
+}
+
+@keyframes bomb {
+    0%   {background: linear-gradient(#e66465, #ee8813);}
+    50%  {background: linear-gradient(#ee8813, #ebb917);}
+    100%  {background: linear-gradient(#ebb917, #d6c912);}
+}
+
+.revealed-bomb {
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation-name: bomb;
+    animation-duration: 0.2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
