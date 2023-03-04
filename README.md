@@ -1,13 +1,11 @@
 # Logic Games
 - Real-time online multiplayer puzzle game app
-- The app is still being developed
 - Live demo [_here_](https://logic-games-feae1.web.app/).
 
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Project Status](#project-status)
 * [Setup](#setup)
 
 ## General Information
@@ -29,11 +27,8 @@
 - Sudoku - Players are given the same grid to solve. The player who solves the grid first wins. There are three difficulty levels available, which determine the maximum number of empty cells on a Sudoku grid at the beginning. After finishing their game, the player can observe the opponent's game.
 - Chess - Players can choose pawn color and time limit.
 - Minesweeper - Players are given the same grid to solve. The player who solves the grid first wins. There are three difficulty levels available, which determine the grid size and the number of bombs. After finishing their game, the player can observe the opponent's game.
-- Tic Tac Toe - comming soon
-#### Real-time chat for players in every game.
 
-## Project Status
-> Project is in progress. In the near future, I plan to add Tic-Tac-Toe.
+#### Real-time chat for players in every game.
 
 ## Setup
 #### Env Variables
