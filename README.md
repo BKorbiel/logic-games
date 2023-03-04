@@ -28,12 +28,12 @@
 - Mastermind - Players are given the same code to guess. The player who guesses the code first wins. There are three difficulty levels available, which determine the total number of colors involved in the game. After finishing their game, the player can observe the opponent's game.
 - Sudoku - Players are given the same grid to solve. The player who solves the grid first wins. There are three difficulty levels available, which determine the maximum number of empty cells on a Sudoku grid at the beginning. After finishing their game, the player can observe the opponent's game.
 - Chess - Players can choose pawn color and time limit.
+- Minesweeper - Players are given the same grid to solve. The player who solves the grid first wins. There are three difficulty levels available, which determine the grid size and the number of bombs. After finishing their game, the player can observe the opponent's game.
 - Tic Tac Toe - comming soon
-- Minesweeper - comming soon
 #### Real-time chat for players in every game.
 
 ## Project Status
-> Project is in progress. In the near future, I plan to add Tic-Tac-Toe and Minesweeper.
+> Project is in progress. In the near future, I plan to add Tic-Tac-Toe.
 
 ## Setup
 #### Env Variables
