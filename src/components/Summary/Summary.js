@@ -35,7 +35,7 @@ const ThisPlayersGame = ({game, thisPlayer, thisPlayerGameStatus}) => {
     case "sudoku":
       return (<div className='game-summary'><Board game={game} userId={thisPlayer.uid} isPlaying={false}/></div>);
     case "minesweeper":
-      return (<div className='game-summary'><MinesweeperBoard game={game} playerId={thisPlayer.uid} isPlaying={false}/></div>);
+      return (<div className='game-summary'><MinesweeperBoard game={game} player={thisPlayer} isPlaying={false}/></div>);
     default:
       return <div>GALO</div>
   }
@@ -54,7 +54,7 @@ const SecondPlayersGame = ({game, secondPlayer, secondPlayerGameStatus}) => {
     case "sudoku":
       return (<div className='game-summary'><Board game={game} userId={secondPlayer.uid} isPlaying={false}/></div>);
     case "minesweeper":
-      return (<div className='game-summary'><MinesweeperBoard game={game} playerId={secondPlayer.uid} isPlaying={false}/></div>);
+      return (<div className='game-summary'><MinesweeperBoard game={game} player={secondPlayer} isPlaying={false}/></div>);
     default:
       return <div>GALO</div>
   }
@@ -94,7 +94,7 @@ const Summary = ({game, id, thisPlayer, secondPlayer} ) => {
           return "Draw! No one solved sudoku";
         }
         break;
-      case "mastermind":
+      case "minesweeper":
         if (thisPlayer.didSolveGrid===true) {
           if (secondPlayer.didSolveGrid===true) {
             return (thisPlayer.finish < secondPlayer.finish ? thisPlayer.name : secondPlayer.name) + " wins by time!";

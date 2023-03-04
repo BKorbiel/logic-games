@@ -75,13 +75,14 @@ const setChessGame = (game, selectedColor, timeControl) => {
 const setMinesweeperGame = (game, difficulty) => {
   game.difficulty = difficulty;
 
-  const {grid, rowCount, colCount} = setGame(difficulty);
+  const {grid, rowCount, colCount, bombsCount} = setGame(difficulty);
   game.grid = grid;
   game.rowCount = rowCount;
   game.colCount = colCount;
+  game.bombsCount = bombsCount;
 
   setDoc(doc(db, "games", game.gameId), game); 
-  setDoc(doc(db, "games", game.gameId, "gameStatus", game.members[0].uid), {playerBoard: Array(rowCount*colCount).fill(0)});
+  setDoc(doc(db, "games", game.gameId, "gameStatus", game.members[0].uid), {playerBoard: Array(rowCount*colCount).fill(0), flagsCount: 0});
 }
 
 const Home = () => {

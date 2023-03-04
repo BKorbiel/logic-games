@@ -3,28 +3,28 @@
 export const setGame = (difficulty) => {
     let rowCount;
     let colCount;
-    let bombCount;
+    let bombsCount;
     switch (difficulty) {
         case "easy":
             rowCount = 8;
             colCount = 8;
-            bombCount = 10
+            bombsCount = 10
             break;
         case "normal":
             rowCount = 15;
             colCount = 13;
-            bombCount = 40;
+            bombsCount = 40;
             break;
         case "hard":
             rowCount = 30;
             colCount = 16;
-            bombCount = 99;
+            bombsCount = 99;
             break;
     }
 
     const gridSize = rowCount * colCount;
     let grid = Array(gridSize).fill(0);
-    for (let i=0; i<bombCount; i++) {
+    for (let i=0; i<bombsCount; i++) {
         let bombPosition;
         do {
             bombPosition = Math.floor(Math.random()*gridSize);
@@ -45,7 +45,7 @@ export const setGame = (difficulty) => {
         }
     }
 
-    return {grid, rowCount, colCount};
+    return {grid, rowCount, colCount, bombsCount};
 }
 
 const DFS = (grid, gridSize, visited, colCount, position) => {
@@ -78,4 +78,18 @@ export const getCellsToReveal = (grid, gridSize, colCount, position) => {
     visited[position]=true;
     
     return DFS(grid, gridSize, visited, colCount, position);
+}
+
+export const didPlayerWin = (grid, playersBoard) => {
+    let result = true;
+    grid.forEach((cell, i) => {
+        if (cell!=9) {
+            if (playersBoard[i]===0 || playersBoard[i]===10) {
+                console.log(i);
+                result = false;
+                return;
+            }
+        }
+    });
+    return result;
 }

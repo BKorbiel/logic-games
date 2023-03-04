@@ -50,7 +50,9 @@ const Minesweeper = ({id}) => {
             :
             <div className='minesweeper-game'>
                 <div className='countdown'><CountDown startDate={game?.started || 0}/></div>
-                {game && <MinesweeperBoard game={game} playerId={currentUser.uid} onGameOver={endTheGame} isPlaying={true}/>}
+                {game && <MinesweeperBoard game={game} player={game.members.find(m => m.uid === currentUser.uid)} onGameOver={endTheGame} isPlaying={true}/>}
+                <div className="end" onClick={() => endTheGame(false)}>Surrender</div>
+                {secondPlayerFinished && <div className='info'>The second player already finished the game</div>}
             </div>
             }
         </div>

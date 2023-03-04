@@ -15,8 +15,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    cursor: default;
 }
 
+.cell-to-hover:hover {
+    border: 2px solid black;
+}
 
 .flag-img {
     width: 15px;
@@ -48,4 +52,18 @@
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-timing-function: linear;
+}
+
+.bomb-count {
+    max-height: 20px;
+    background-color: lightgreen;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.bomb-count img {
+    width: 20px;
+    height: 20px;
 }

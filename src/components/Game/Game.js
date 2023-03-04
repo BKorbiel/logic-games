@@ -80,7 +80,7 @@ const Game = () => {
                     setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {currentBoard: game.startingBoard});
                 }
                 if (game.game==="minesweeper") {
-                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {playerBoard: Array(game.rowCount*game.colCount).fill(0)});
+                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {playerBoard: Array(game.rowCount*game.colCount).fill(0), flagsCount: 0});
                 }
                 
                 const updatedMembers = [creator, user];
