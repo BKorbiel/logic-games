@@ -148,6 +148,12 @@ const Home = () => {
               The first player to solve the sudoku wins
             </>
           }
+          {selectedGame==="minesweeper" && 
+            <>
+              <br/>
+              The first player to solve the grid wins
+            </>
+          }
           {selectedGame==="chess" && 
             <>
               <h2>Choose your color</h2>
