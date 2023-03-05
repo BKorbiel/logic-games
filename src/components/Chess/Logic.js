@@ -202,7 +202,6 @@ const possibleMoves = (board, piecePosition, enpassant) => {
                 }
                 //enpassant
                 if (piecePosition%8!=7 && piecePosition+1===enpassant) {
-                    console.log("xd");
                     result.push(piecePosition+9);
                 }
                 if (piecePosition%8!=0 && piecePosition-1===enpassant) {

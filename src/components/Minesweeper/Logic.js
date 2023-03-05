@@ -85,7 +85,6 @@ export const didPlayerWin = (grid, playersBoard) => {
     grid.forEach((cell, i) => {
         if (cell!=9) {
             if (playersBoard[i]===0 || playersBoard[i]===10) {
-                console.log(i);
                 result = false;
                 return;
             }

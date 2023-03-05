@@ -4,7 +4,11 @@ const CountDown = ({startDate}) => {
     const [counter, setCounter] = useState(Timestamp.fromDate(new Date()) - startDate-10);
   
     useEffect(() => {
-      setTimeout(() => setCounter(Timestamp.fromDate(new Date()) - startDate-10), 100);
+      let timeoutId = setTimeout(() => setCounter(Timestamp.fromDate(new Date()) - startDate-10), 100);
+
+      return () => {
+        clearTimeout(timeoutId);
+      }
     }, [counter, startDate]);
   
     return (
