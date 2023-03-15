@@ -74,6 +74,8 @@ const Board = ({gameId, thisPlayer, onGameOver}) => {
   const dropPiece = (e) => {
     if (movingPiece) {
       const pos = getPosition(e.clientX, e.clientY);
+
+      //is it legal move?
       if (pos!=null && moveFrom!=pos && isLegalMove(game.currentBoard, moveFrom, pos, game.castles, game.enpassant)) {
         let updatedGame = {...game};
         
@@ -90,9 +92,13 @@ const Board = ({gameId, thisPlayer, onGameOver}) => {
           movingPiece.style.removeProperty("top");
           movingPiece.style.removeProperty("left");
         } else {
+
+          //legal move & not promotion - updating game status
           updatedGame.currentBoard[pos] = updatedGame.currentBoard[moveFrom];
           updatedGame.currentBoard[moveFrom] = "";
           updatedGame.currentMove = game.currentMove === "white" ? "black" : "white";
+
+          //update player's time
           for (let i=0; i<2; i++) {
             if (updatedGame.members[i].uid===thisPlayer.uid) {
               updatedGame.members[i].leftTime = updatedGame.members[i].leftTime-(Timestamp.fromDate(new Date())-updatedGame.members[i].moveFromTime);
@@ -101,7 +107,10 @@ const Board = ({gameId, thisPlayer, onGameOver}) => {
               updatedGame.members[i].moveFromTime = Timestamp.fromDate(new Date());
             }
           }
+          
           setDoc(doc(db, "games", gameId), updatedGame);
+
+          //is game over?
           if (isCheckMate(updatedGame.currentBoard, updatedGame.currentMove, updatedGame.enpassant)) {
             onGameOver(game, `${thisPlayer.name} wins by checkmate!`);
           } 

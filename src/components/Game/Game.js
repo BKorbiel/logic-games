@@ -54,50 +54,16 @@ const Game = () => {
         if (game?.status=="waiting") {
             const creator = game?.members.find(m => m.creator === true);
 
-            //new player joins room
-            if (creator.uid !== currentUser.uid) {
-                const user = {
-                    uid: currentUser.uid,
-                    name: localStorage.getItem("userName"),
-                    creator: false
-                }
-                if (game.game==="chess") {
-                    let date = new Date();
-                    date.setSeconds(date.getSeconds() + 12);
-                    if (creator.color==="white") {
-                        user.color = "black";
-                        creator.moveFromTime = Timestamp.fromDate(date);
-                    } else {
-                        user.color = "white";
-                        user.moveFromTime = Timestamp.fromDate(date);
-                    }
-                    if (game.timeControl) {
-                        user.leftTime = game.timeControl*60;
-                        creator.leftTime = game.timeControl*60;
-                    }
-                }
-                if (game.game==="sudoku") {
-                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {currentBoard: game.startingBoard});
-                }
-                if (game.game==="minesweeper") {
-                    setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {playerBoard: Array(game.rowCount*game.colCount).fill(0), flagsCount: 0});
-                }
-                
-                const updatedMembers = [creator, user];
-                const start = Timestamp.fromDate(new Date());
-                updateDoc(doc(db, "games", id), {members: updatedMembers, status: "started", started: start});
-                game.started=start;
-
-                setWaitingForSecondPlayer(false);
-                setIsCountingDown(true);
+            if (creator.uid !== currentUser.uid) { //new player joins room
+                setGame(creator);
             } else {
                 setWaitingForSecondPlayer(true);
             }
 
         } else if (game?.status=="started") {
             setWaitingForSecondPlayer(false);
-            //intruder joins room 
-            if (!game.members.map((member) => member.uid).includes(currentUser.uid)) {
+             
+            if (!game.members.map((member) => member.uid).includes(currentUser.uid)) { //intruder joins room
                 setIntruder(true);
                 setTimeout(() => navigate('/'), 6000);
             }
@@ -106,6 +72,43 @@ const Game = () => {
             }
         } 
     }, [game]);
+
+    const setGame = (creator) => {
+        const user = {
+            uid: currentUser.uid,
+            name: localStorage.getItem("userName"),
+            creator: false
+        }
+        if (game.game==="chess") {
+            let date = new Date();
+            date.setSeconds(date.getSeconds() + 12);
+            if (creator.color==="white") {
+                user.color = "black";
+                creator.moveFromTime = Timestamp.fromDate(date);
+            } else {
+                user.color = "white";
+                user.moveFromTime = Timestamp.fromDate(date);
+            }
+            if (game.timeControl) {
+                user.leftTime = game.timeControl*60;
+                creator.leftTime = game.timeControl*60;
+            }
+        }
+        if (game.game==="sudoku") {
+            setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {currentBoard: game.startingBoard});
+        }
+        if (game.game==="minesweeper") {
+            setDoc(doc(db, "games", id, "gameStatus", currentUser.uid), {playerBoard: Array(game.rowCount*game.colCount).fill(0), flagsCount: 0});
+        }
+        
+        const updatedMembers = [creator, user];
+        const start = Timestamp.fromDate(new Date());
+        updateDoc(doc(db, "games", id), {members: updatedMembers, status: "started", started: start});
+        game.started=start;
+
+        setWaitingForSecondPlayer(false);
+        setIsCountingDown(true);
+    }
 
     const startGame = () => {
         setIsCountingDown(false);
